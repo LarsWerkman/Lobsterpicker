@@ -49,7 +49,8 @@ image
 how to use:
 
 
-Credits: This library is written and developed by <a href="https://larswerkman.com">Lars Werkmann</a>. For feedback, requests and collaboration please use Github or write us. 
+### Credits
+This library is written and developed by <a href="https://larswerkman.com">Lars Werkmann</a>. For feedback, requests and collaboration please use Github or write us. 
 
 Lars Werkmann
 Freelance android developer
