@@ -2,7 +2,7 @@
 by Lars Werkmann and Marie Schweiz
 
 Colorpicker is a library for android material design made to support apps and developers if a color should be choosen by a user. The library is offering a dialog which is offering all shades of material design colors. Give it a try via google play
-Designed by Marie Schweiz, Developed by Lars Werkmann
+Designed by <a href="http://dvsty.com">Marie Schweiz</a>, Developed by <a href="https://larswerkman.com">Lars Werkmann</a>
 
 ## How you can use it:
 
@@ -20,7 +20,7 @@ code you need to implement, or additional links how to implement them.
 
 ### color wheel you prefer (wheel only)
 
-<img src="https://drive.google.com/file/d/0B92uq8hW2Ny-MU9BOEJHZnY1eUk">
+![image](https://drive.google.com/file/d/0B92uq8hW2Ny-MU9BOEJHZnY1eUk)
 how to use:
 
 ### color wheel and a before and after circle in the middle
@@ -47,3 +47,14 @@ how to use:
 
 image
 how to use:
+
+
+Credits: This library is written and developed by <a href="https://larswerkman.com">Lars Werkmann</a>. For feedback, requests and collaboration please use Github or write us. 
+
+Lars Werkmann
+Freelance android developer
+werkman.lars@gmail.com
+
+Marie Schweiz
+Freelance android designer
+marie.schweiz@gmail.com
