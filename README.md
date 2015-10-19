@@ -20,7 +20,7 @@ code you need to implement, or additional links how to implement them.
 
 ### color wheel you prefer (wheel only)
 
-image
+<img src="https://drive.google.com/file/d/0B92uq8hW2Ny-MU9BOEJHZnY1eUk">
 how to use:
 
 ### color wheel and a before and after circle in the middle
