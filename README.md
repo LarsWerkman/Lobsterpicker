@@ -16,3 +16,34 @@ code you need to implement, or additional links how to implement them.
 * color wheel, a slider/toggle for the colorspace and the opacity
 * slider only, toggle for shades of one colors only
 * slider only,  toggle for 5 different shades you define
+
+
+### color wheel you prefer (wheel only)
+
+image
+how to use:
+
+### color wheel and a before and after circle in the middle
+
+image
+how to use:
+
+### color wheel and a slider/toggle for switching between different color spaces
+
+image
+how to use:
+
+### color wheel, a slider/toggle for the colorspace and the opacity
+
+image
+how to use:
+
+### slider only, toggle for shades of one colors only
+
+image
+how to use:
+
+### slider only,  toggle for 5 different shades you define
+
+image
+how to use:
