@@ -36,9 +36,8 @@ Include one or multiple of the views inside of you layout:
 
 #### color wheel you prefer (wheel only)
 
-<p style="display: table-cell; align-vertical: middle">
-<img style="vertical-align: middle;" src="http://dvsty.com/git-lobsterpicker/option-wheel.png">
-<span>
+![image](http://dvsty.com/git-lobsterpicker/option-wheel.png)
+
 ```java
 LobsterPicker lobsterPicker = (LobsterPicker) findViewById(R.id.lobsterpicker);
 
@@ -58,8 +57,6 @@ lobsterPicker.addOnColorListener(new OnColorListener() {
     }
 });
 ```
-</span>
-</p>
 
 #### color wheel and a before and after circle in the middle
 
