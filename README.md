@@ -5,7 +5,24 @@ Lobsterpicker is a library for android material design made to support apps and 
 
 ## How you can use it:
 
-code you need to implement, or additional links how to implement them.
+Include one or multiple of the views inside of you layout:
+```xml
+<com.larswerkman.lobsterpicker.LobsterPicker
+    android:id="@+id/lobsterpicker"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+<com.larswerkman.lobsterpicker.sliders.LobsterShadeSlider
+    android:id="@+id/shadeslider"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+<com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider
+    android:id="@+id/alphaslider"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+```
+
 
 ## summary of options
 
@@ -19,8 +36,30 @@ code you need to implement, or additional links how to implement them.
 
 #### color wheel you prefer (wheel only)
 
-![image](http://dvsty.com/git-lobsterpicker/option-wheel.png)
-how to use:
+<p style="display: table-cell; align-vertical: middle">
+<img style="vertical-align: middle;" src="http://dvsty.com/git-lobsterpicker/option-wheel.png">
+<span>
+```java
+LobsterPicker lobsterPicker = (LobsterPicker) findViewById(R.id.lobsterpicker);
+
+//To retrieve to color use
+lobsterPicker.getColor();
+
+//You'r also able to add on listener
+lobsterPicker.addOnColorListener(new OnColorListener() {
+    @Override
+    public void onColorChanged(@ColorInt int color) {
+        
+    }
+
+    @Override
+    public void onColorSelected(@ColorInt int color) {
+
+    }
+});
+```
+</span>
+</p>
 
 #### color wheel and a before and after circle in the middle
 
@@ -46,6 +85,37 @@ how to use:
 
 ![image](http://dvsty.com/git-lobsterpicker/option-toggle.png)
 how to use:
+
+
+## Download
+Maven:
+```xml
+<dependency>
+	<groupId>com.larswerkman</groupId>
+	<artifactId>lobsterpicker</artifactId>
+	<version>1.0.0</version>
+</dependency>
+```
+
+Gradle:
+```groovy
+compile 'com.larswerkman:lobsterpicker:1.0.0'
+``` 
+
+
+## License
+```license
+Copyright (C) 2015 Marie Schweiz & Lars Werkman
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+    http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
 
 
 ## Credits
