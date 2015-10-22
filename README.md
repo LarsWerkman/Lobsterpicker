@@ -18,7 +18,7 @@ Include one or multiple of the views inside of you layout:
     android:layout_height="wrap_content" />
 
 <com.larswerkman.lobsterpicker.sliders.LobsterOpacitySlider
-    android:id="@+id/alphaslider"
+    android:id="@+id/opacityslider"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
 ```
@@ -28,11 +28,10 @@ Include one or multiple of the views inside of you layout:
 
 * color wheel you prefer (wheel only)
 * color wheel and a before and after circle in the middle
-* color wheel and a slider/toggle for switching between different color spaces
-* color wheel, a slider/toggle for the colorspace and the opacity
-* slider only, toggle for shades of one colors only
-* slider only,  toggle for 5 different shades you define
-
+* color wheel and a slider for switching between different color spaces
+* color wheel, a slider for the colorspace and the opacity
+* slider only, toggle for 5 different shades you define
+* slider only and opacity
 
 #### color wheel you prefer (wheel only)
 
@@ -41,10 +40,10 @@ Include one or multiple of the views inside of you layout:
 ```java
 LobsterPicker lobsterPicker = (LobsterPicker) findViewById(R.id.lobsterpicker);
 
-//To retrieve to color use
+//To retrieve the selected color use
 lobsterPicker.getColor();
 
-//You'r also able to add on listener
+//You'r also able to add a listener
 lobsterPicker.addOnColorListener(new OnColorListener() {
     @Override
     public void onColorChanged(@ColorInt int color) {
@@ -61,27 +60,88 @@ lobsterPicker.addOnColorListener(new OnColorListener() {
 #### color wheel and a before and after circle in the middle
 
 ![image](http://dvsty.com/git-lobsterpicker/option-wheel-circle.png)
-how to use:
 
-#### color wheel and a slider/toggle for switching between different color spaces
+By default this is disabled your able to enable it in xml
+
+```xml
+app:color_history_enabled="true"
+```
+
+Or in Java
+
+```java
+LobsterPicker lobsterPicker = (LobsterPicker) findViewById(R.id.lobsterpicker);
+
+//To enable to color feedback use
+lobsterPicker.setColorHistoryEnabled(true);
+
+//To set a previous picked color or reference color use
+lobsterPicker.setHistory(Color.RED);
+```
+
+#### color wheel and a slider for switching between different color spaces
+
+![image](http://dvsty.com/git-lobsterpicker/option-wheel-toggle.png)
+
+To connect a slider to the color wheel use
+
+```java
+LobsterPicker lobsterPicker = (LobsterPicker) findViewById(R.id.lobsterpicker);
+LobsterShadeSlider shadeSlider = (LobsterShadeSlider) findViewById(R.id.shadeslider);
+
+//To connect them
+lobsterpicker.addDecorator(shadeSlider);
+```
+
+All sliders implement the `ColorDecorator` interface, which enables them to manipulate the user selected color.
+Important to notice is the sequence you add decorators, because the first decorator that is added will be the first to manipulate the color.
+
+#### color wheel, a slider for the colorspace and the opacity
 
 ![image](http://dvsty.com/git-lobsterpicker/option-wheel-toggle-opacity.png)
-how to use:
 
-#### color wheel, a slider/toggle for the colorspace and the opacity
+To connect both the `LobsterShadeSlider` and `LobsterOpacitySlider` isn't any diffent then the previous mentioned method
 
-![image](http://dvsty.com/git-lobsterpicker/option-wheel-toggle-opacity.png)
-how to use:
+```java
+LobsterPicker lobsterPicker = (LobsterPicker) findViewById(R.id.lobsterpicker);
+LobsterShadeSlider shadeSlider = (LobsterShadeSlider) findViewById(R.id.shadeslider);
+LobsterOpacitySlider opacitySlider = (LobsterOpacitySlider) findViewById(R.id.opacityslider);
 
-#### slider only, toggle for shades of one colors only
+//To connect them
+lobsterpicker.addDecorator(shadeSlider);
+lobsterpicker.addDecorator(opacitySlider);
+```
 
-![image]()
-how to use:
-
-#### slider only,  toggle for 5 different shades you define
+#### slider only, toggle for 5 different shades you define
 
 ![image](http://dvsty.com/git-lobsterpicker/option-toggle.png)
-how to use:
+
+The `LobsterShadeSlider` can also be used as a standalone color selector.
+
+```java
+//To retrieve to color is the same mehtod used for the LobsterPicker
+shadeSlider.getColor();
+```
+
+To use your own colors this can be done by implementing the `ColorAdapter` interface.
+Or use the existing `BitmapColorAdapter` which takes a Drawable as color source.
+
+```java
+lobsterPicker.setColorAdapter(new BitmapColorAdapter(this, R.drawable.default_shader_pallete));
+```
+
+#### slider only and opacity
+
+![image](http://dvsty.com/git-lobsterpicker/option-toggle-opacity.png)
+
+Just like for the `LobsterPicker` you have to add the opacity slider as a decorator
+```java
+LobsterShadeSlider shadeSlider = (LobsterShadeSlider) findViewById(R.id.shadeslider);
+LobsterOpacitySlider opacitySlider = (LobsterOpacitySlider) findViewById(R.id.opacityslider);
+
+//To connect them
+shadeSlider.addDecorator(opacitySlider);
+```
 
 
 ## Download
