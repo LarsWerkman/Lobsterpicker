@@ -1,7 +1,9 @@
 # Lobsterpicker
 Designed by <a href="http://dvsty.com">Marie Schweiz</a>, Developed by <a href="https://larswerkman.com">Lars Werkman</a>
 
-Lobsterpicker is a library for android material design made to support apps and developers if a color should be choosen by a user. The library is offering a dialog with all shades of material design colors. Give it a try via google play
+Lobsterpicker is a library for android material design made to support apps and developers if a color should be choosen by a user. The library is offering a dialog with all shades of material design colors. Give it a try and download our <a href="https://play.google.com/store/apps/details?id=com.larswerkman.lobsterpickerproject">demo app via google play</a>
+
+![image](http://dvsty.com/git-lobsterpicker/header.png)
 
 ## How you can use it:
 
