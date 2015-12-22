@@ -79,6 +79,9 @@ public class LobsterOpacitySlider extends LobsterSlider {
         updateColor();
         chain.setColor(this, chainedColor);
 
+        if(Color.alpha(color) != 0xFF){
+            setOpacity(Color.alpha(color));
+        }
         invalidate();
     }
 

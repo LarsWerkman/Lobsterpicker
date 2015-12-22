@@ -21,6 +21,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
@@ -29,6 +30,7 @@ import android.graphics.Region;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
+import android.util.Pair;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -384,6 +386,21 @@ public class LobsterPicker extends View {
         return colorHistoryEnabled;
     }
 
+    public void setColor(@ColorInt int color){
+        float oldAngle = getAngle(colorPosition);
+
+        setClosestColorPosition(color);
+        setPointerPosition(getAngle(colorPosition));
+
+        this.color = chainedColor = adapter.color(colorPosition, shadePosition);
+        pointerPaint.setColor(this.color);
+        historyPaint.setColor(this.color);
+
+        chainDecorators(Color.alpha(color));
+
+        getMoveAnimation(oldAngle, getAngle(colorPosition)).start();
+    }
+
     /**
      * Returns the selected color.
      *
@@ -439,6 +456,41 @@ public class LobsterPicker extends View {
         return colorPosition;
     }
 
+    public void setShadePosition(int position) {
+        shadePosition = position;
+        color = chainedColor = adapter.color(colorPosition, shadePosition);
+        pointerPaint.setColor(color);
+        historyPaint.setColor(color);
+        chainDecorators();
+    }
+
+    public int getShadePosition(){
+        return shadePosition;
+    }
+
+    private void setClosestColorPosition(@ColorInt int color){
+        double closestDistance = Double.MAX_VALUE;
+
+        for(int i = 0; i < adapter.size(); i++){
+            for(int j = 0; j < adapter.shades(i); j++){
+                int adapterColor = adapter.color(i, j);
+
+                double distance = Math.sqrt(
+                        Math.pow(Color.alpha(color) - Color.alpha(adapterColor), 2)
+                        + Math.pow(Color.red(color) - Color.red(adapterColor), 2)
+                        + Math.pow(Color.green(color) - Color.green(adapterColor), 2)
+                        + Math.pow(Color.blue(color) - Color.blue(adapterColor), 2));
+
+                if(distance < closestDistance){
+                    closestDistance = distance;
+
+                    colorPosition = i;
+                    shadePosition = j;
+                }
+            }
+        }
+    }
+
     private void updateColorAdapter() {
         if(colorPosition >= adapter.size()){
             colorPosition = adapter.size() - 1;
@@ -454,6 +506,14 @@ public class LobsterPicker extends View {
 
     private void chainDecorators() {
         for (ColorDecorator decorator : decorators) {
+            decorator.onColorChanged(chain, color);
+        }
+    }
+
+    private void chainDecorators(int alpha){
+        for (ColorDecorator decorator : decorators) {
+            color &= (0x00FFFFFF);
+            color |= (alpha << 24);
             decorator.onColorChanged(chain, color);
         }
     }

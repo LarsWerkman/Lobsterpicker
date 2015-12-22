@@ -54,7 +54,7 @@ public class LobsterShadeSlider extends LobsterSlider {
             if (index < (decorators.size() - 1)) {
                 decorators.get(index + 1).onColorChanged(this, color);
             } else {
-                if(chainedColor != color) {
+                if (chainedColor != color) {
                     for (OnColorListener listener : listeners) {
                         listener.onColorChanged(color);
                     }
@@ -143,32 +143,29 @@ public class LobsterShadeSlider extends LobsterSlider {
 
     @Override
     public void onColorChanged(LobsterPicker.Chain chain, int color) {
-        if (chain == LobsterPicker.EMPTY_CHAIN) {
-            shadePosition = -1;
-        }
-
         this.lobsterPickerChain = chain;
-        int oldSize = shades.length;
+
         int size = chain.getAdapter().shades(chain.getAdapterPosition());
+
         segmentLength = length / size;
         shades = new int[size];
         for (int i = 0; i < size; i++) {
             shades[size - 1 - i] = chain.getAdapter().color(chain.getAdapterPosition(), i);
         }
 
-        if (shadePosition == -1) {
-            shadePosition = findShadePosition();
-        } else {
-            shadePosition = size - (oldSize - shadePosition);
-            if (shadePosition < 0) {
-                shadePosition = 0;
-            }
+        shadePosition = chain.getShadePosition();
+        shadePosition = size - 1 - shadePosition;
+        if (shadePosition == shades.length) {
+            shadePosition--;
+        } else if (shadePosition < 0) {
+            shadePosition = 0;
         }
+
         updatePointer();
         chain.setShade(getShadePosition());
         chain.setColor(this, shades[shadePosition]);
 
-        if(chainedColor != shades[shadePosition]) {
+        if (chainedColor != shades[shadePosition]) {
             for (OnColorListener listener : listeners) {
                 listener.onColorChanged(chainedColor);
             }
@@ -186,10 +183,27 @@ public class LobsterShadeSlider extends LobsterSlider {
         invalidate();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getColor() {
         return chainedColor;
+    }
+
+    public void setColor(@ColorInt int color) {
+        setClosestColorPosition(color);
+        int oldColor = chainedColor;
+
+        updatePointer();
+        chainDecorators(Color.alpha(color));
+
+        if (chainedColor != oldColor) {
+            for (OnColorListener listener : listeners) {
+                listener.onColorSelected(chainedColor);
+            }
+        }
+        getMoveAnimation().start();
     }
 
     /**
@@ -200,15 +214,15 @@ public class LobsterShadeSlider extends LobsterSlider {
     public void setColorAdapter(@NonNull ColorAdapter adapter) {
         int oldColor = chainedColor;
         this.adapter = adapter;
-        if(getShadePosition() >= adapter.shades(0) - 1){
+        if (getShadePosition() >= adapter.shades(0) - 1) {
             shadePosition = 0;
-        } else if(shadePosition >= adapter.shades(0)) {
+        } else if (shadePosition >= adapter.shades(0)) {
             shadePosition = adapter.shades(0) - 1 - getShadePosition();
         }
 
         updateColorAdapter();
 
-        if(chainedColor != oldColor) {
+        if (chainedColor != oldColor) {
             for (OnColorListener listener : listeners) {
                 listener.onColorSelected(chainedColor);
             }
@@ -233,7 +247,6 @@ public class LobsterShadeSlider extends LobsterSlider {
      * Remove a {@link ColorDecorator}.
      *
      * @param decorator to be removed
-     *
      * @return true if it could remove the decorator
      */
     public boolean removeDecorator(@NonNull ColorDecorator decorator) {
@@ -246,7 +259,7 @@ public class LobsterShadeSlider extends LobsterSlider {
      * @param listener to be added
      */
     public void addOnColorListener(@NonNull OnColorListener listener) {
-        if(!listeners.contains(listener)){
+        if (!listeners.contains(listener)) {
             listeners.add(listener);
         }
     }
@@ -255,10 +268,9 @@ public class LobsterShadeSlider extends LobsterSlider {
      * Remove a {@link OnColorListener}
      *
      * @param listener to be removed
-     *
      * @return true if it could remove the listener
      */
-    public boolean removeOnColorListener(@NonNull OnColorListener listener){
+    public boolean removeOnColorListener(@NonNull OnColorListener listener) {
         return listeners.remove(listener);
     }
 
@@ -267,12 +279,12 @@ public class LobsterShadeSlider extends LobsterSlider {
      *
      * @param position > 0 and < MAX shades inside {@link ColorAdapter}
      */
-    public void setShadePosition(int position){
+    public void setShadePosition(int position) {
         shadePosition = shades.length - 1 - position;
 
         int oldColor = chainedColor;
         updateShade();
-        if(chainedColor != oldColor) {
+        if (chainedColor != oldColor) {
             for (OnColorListener listener : listeners) {
                 listener.onColorSelected(chainedColor);
             }
@@ -289,8 +301,27 @@ public class LobsterShadeSlider extends LobsterSlider {
         return shades.length - 1 - shadePosition;
     }
 
-    private void updateColorAdapter(){
-        if(lobsterPickerChain == LobsterPicker.EMPTY_CHAIN){
+    private void setClosestColorPosition(@ColorInt int color) {
+        double closestDistance = Double.MAX_VALUE;
+
+        for (int i = 0; i < adapter.shades(0); i++) {
+            int adapterColor = adapter.color(0, i);
+
+            double distance = Math.sqrt(
+                    Math.pow(Color.alpha(color) - Color.alpha(adapterColor), 2)
+                            + Math.pow(Color.red(color) - Color.red(adapterColor), 2)
+                            + Math.pow(Color.green(color) - Color.green(adapterColor), 2)
+                            + Math.pow(Color.blue(color) - Color.blue(adapterColor), 2));
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                shadePosition = adapter.shades(0) - 1 - i;
+            }
+        }
+    }
+
+    private void updateColorAdapter() {
+        if (lobsterPickerChain == LobsterPicker.EMPTY_CHAIN) {
             int size = adapter.shades(0);
             segmentLength = length / size;
             shades = new int[size];
@@ -303,7 +334,7 @@ public class LobsterShadeSlider extends LobsterSlider {
         }
     }
 
-    private void updateShade(){
+    private void updateShade() {
         updatePointer();
         lobsterPickerChain.setShade(getShadePosition());
         lobsterPickerChain.setColor(this, shades[shadePosition]);
@@ -318,6 +349,14 @@ public class LobsterShadeSlider extends LobsterSlider {
 
     private void chainDecorators() {
         for (ColorDecorator decorator : decorators) {
+            decorator.onColorChanged(chain, shades[shadePosition]);
+        }
+    }
+
+    private void chainDecorators(int alpha){
+        for (ColorDecorator decorator : decorators) {
+            shades[shadePosition] &= (0x00FFFFFF);
+            shades[shadePosition] |= (alpha << 24);
             decorator.onColorChanged(chain, shades[shadePosition]);
         }
     }
@@ -422,7 +461,7 @@ public class LobsterShadeSlider extends LobsterSlider {
 
                 pointerPressed = false;
 
-                for(OnColorListener listener : listeners) {
+                for (OnColorListener listener : listeners) {
                     listener.onColorSelected(chainedColor);
                 }
                 break;
