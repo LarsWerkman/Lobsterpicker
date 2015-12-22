@@ -4,7 +4,7 @@ apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.2"
 
     defaultConfig {
         minSdkVersion 14
@@ -21,8 +21,8 @@ def buildTime() {
 }
 
 dependencies {
-    compile 'com.android.support:support-annotations:23.1.0'
-    javadocDeps 'com.android.support:support-annotations:23.1.0'
+    compile 'com.android.support:support-annotations:23.1.1'
+    javadocDeps 'com.android.support:support-annotations:23.1.1'
 }
 
 apply from: 'gradle-mvn-push.gradle'
