@@ -153,13 +153,13 @@ Maven:
 <dependency>
 	<groupId>com.larswerkman</groupId>
 	<artifactId>lobsterpicker</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 </dependency>
 ```
 
 Gradle:
 ```groovy
-compile 'com.larswerkman:lobsterpicker:1.0.0'
+compile 'com.larswerkman:lobsterpicker:1.0.1'
 ``` 
 
 
