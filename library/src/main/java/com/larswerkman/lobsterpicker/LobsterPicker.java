@@ -533,8 +533,8 @@ public class LobsterPicker extends View {
 
     private float getAngle(int position) {
         int nbOfSegments = adapter.size();
-        int segmentWidth = 360 / nbOfSegments;
-        int degrees = (position * segmentWidth) + (segmentWidth / 2) - 90;
+        float segmentWidth = 360.0f / nbOfSegments;
+        float degrees = (position * segmentWidth) + (segmentWidth / 2) - 90;
         if (degrees > 180) {
             degrees -= 360;
         }
