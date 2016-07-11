@@ -15,7 +15,6 @@
  */
 package com.larswerkman.lobsterpicker;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -26,6 +25,8 @@ import android.graphics.PointF;
 import android.support.annotation.ColorInt;
 import android.util.AttributeSet;
 import android.view.View;
+
+import com.nineoldandroids.animation.ValueAnimator;
 
 /**
  * Abstract slider view to set up default size's and paints
