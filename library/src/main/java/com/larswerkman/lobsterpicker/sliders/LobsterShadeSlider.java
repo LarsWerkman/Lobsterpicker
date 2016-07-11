@@ -15,8 +15,6 @@
  */
 package com.larswerkman.lobsterpicker.sliders;
 
-import android.animation.AnimatorSet;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -33,6 +31,8 @@ import com.larswerkman.lobsterpicker.LobsterSlider;
 import com.larswerkman.lobsterpicker.OnColorListener;
 import com.larswerkman.lobsterpicker.R;
 import com.larswerkman.lobsterpicker.adapters.BitmapColorAdapter;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
 import java.util.List;

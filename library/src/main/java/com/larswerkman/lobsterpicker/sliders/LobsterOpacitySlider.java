@@ -15,7 +15,6 @@
  */
 package com.larswerkman.lobsterpicker.sliders;
 
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,6 +27,7 @@ import android.view.MotionEvent;
 
 import com.larswerkman.lobsterpicker.LobsterPicker;
 import com.larswerkman.lobsterpicker.LobsterSlider;
+import com.nineoldandroids.animation.ValueAnimator;
 
 /**
  * Slider that is able to manipulate the Opacity value of a color.
